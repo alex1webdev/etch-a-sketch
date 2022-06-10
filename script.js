@@ -1,4 +1,4 @@
-const DEFAULT_COLOR = "#686868";
+const DEFAULT_COLOR = "#e9ecef";
 const mainContainer = document.createElement("div");
 mainContainer.className = "main-container";
 
@@ -14,8 +14,13 @@ function sliderButton() {
   sliderContainer.className = "slider-container";
   mainContainer.appendChild(sliderContainer);
 
+  const sliderContainerInner = document.createElement("div");
+  sliderContainerInner.className = "slider-container-inner";
+  sliderContainer.appendChild(sliderContainerInner);
+
   let sliderCounter = document.createElement("p");
-  sliderContainer.appendChild(sliderCounter);
+  sliderContainerInner.appendChild(sliderCounter);
+
   sliderCounter.className = "slider-counter";
 
   const slider = document.createElement("input");
@@ -24,12 +29,13 @@ function sliderButton() {
   slider.setAttribute("max", "64");
   slider.setAttribute("value", "16");
   slider.setAttribute("step", "1");
-  sliderContainer.appendChild(slider);
+  sliderContainerInner.appendChild(slider);
   slider.className = "slider";
 
   let value = parseFloat(slider.value);
 
-  sliderCounter.textContent = `Grid-size: ${value} x ${value}`;
+  sliderCounter.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 6h-6v-6h6v6zm9-6h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6z"/></svg> ${value} x ${value}`;
+  // ` ${value} x ${value}`;
 
   let start = parseFloat(slider.min);
   let end = parseFloat(slider.max);
@@ -38,19 +44,24 @@ function sliderButton() {
   slider.addEventListener("input", () => {
     for (let i = start; i < end; i += step) {
       value = parseFloat(slider.value);
-      sliderCounter.textContent = `Grid-size: ${value} x ${value}`;
+      sliderCounter.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 6h-6v-6h6v6zm9-6h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6z"/></svg> ${value} x ${value}`;
+      // ` ${value} x ${value}`;
     }
   });
 }
 
 function colorPicker() {
+  const colorContainer = document.createElement("div");
+  colorContainer.className = "color-container";
   const colorButton = document.createElement("input");
   colorButton.setAttribute("type", "color");
   colorButton.setAttribute("value", `${DEFAULT_COLOR}`);
+  colorContainer.appendChild(colorButton);
 
   colorButton.className = "color-button";
+
   sliderContainer = document.querySelector(".slider-container");
-  sliderContainer.appendChild(colorButton);
+  sliderContainer.appendChild(colorContainer);
 }
 
 function generateStartGrid() {
@@ -73,8 +84,8 @@ function generateGridElements() {
       element.className = "element";
       elementsContainer.appendChild(element);
       element.setAttribute("id", `${i}`);
-      element.style.height = `${480 / value}px`;
-      element.style.width = `${480 / value}px`;
+      element.style.height = `${580 / value}px`;
+      element.style.width = `${580 / value}px`;
     }
   }
 }
@@ -118,10 +129,10 @@ function checkWhatColorNow() {
 
 function addRandomButton() {
   const randomButton = document.createElement("button");
-  randomButton.textContent = "Random Color";
+  const selectColorContainer = document.querySelector(".color-container");
+  selectColorContainer.appendChild(randomButton);
+  // randomButton.textContent = "Random Color";
   randomButton.classList.add("random-button");
-  sliderContainer = document.querySelector(".slider-container");
-  sliderContainer.appendChild(randomButton);
 }
 
 function generateRandomColor() {
@@ -148,11 +159,16 @@ function randomizeColoring() {
 }
 
 function addEraseButton() {
+  const createToolsContainer = document.createElement("div");
+  createToolsContainer.className = "tools-container";
   const eraseButton = document.createElement("button");
-  eraseButton.textContent = "Eraser";
+  createToolsContainer.appendChild(eraseButton);
+  eraseButton.innerHTML =
+    '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M5.662 23l-5.369-5.365c-.195-.195-.293-.45-.293-.707 0-.256.098-.512.293-.707l14.929-14.928c.195-.194.451-.293.707-.293.255 0 .512.099.707.293l7.071 7.073c.196.195.293.451.293.708 0 .256-.097.511-.293.707l-11.216 11.219h5.514v2h-12.343zm3.657-2l-5.486-5.486-1.419 1.414 4.076 4.072h2.829zm.456-11.429l-4.528 4.528 5.658 5.659 4.527-4.53-5.657-5.657z"/></svg>';
   eraseButton.classList.add("erase-button");
+
   sliderContainer = document.querySelector(".slider-container");
-  sliderContainer.appendChild(eraseButton);
+  sliderContainer.appendChild(createToolsContainer);
 }
 
 function erase() {
@@ -170,10 +186,13 @@ function erase() {
 
 function addClearCanvasButton() {
   const clearCanvasButton = document.createElement("button");
-  clearCanvasButton.textContent = "Clear canvas";
+  const selectToolsContainer = document.querySelector(".tools-container");
+  selectToolsContainer.appendChild(clearCanvasButton);
+  clearCanvasButton.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 6l-3 18h-12l-3-18h2.028l2.666 16h8.611l2.666-16h2.029zm-4.711-4c-.9 0-1.631-1.099-1.631-2h-5.316c0 .901-.73 2-1.631 2h-5.711v2h20v-2h-5.711z"/></svg>';
   clearCanvasButton.classList.add("clear-canvas-button");
   sliderContainer = document.querySelector(".slider-container");
-  sliderContainer.appendChild(clearCanvasButton);
+  sliderContainer.appendChild(selectToolsContainer);
 }
 
 function clearCanvas() {
