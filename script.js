@@ -81,17 +81,12 @@ function generateGridElements() {
 
 function grid() {
   const selectGridParent = document.querySelector(".elements-container");
-  const clearElemEnter = document.querySelectorAll(".element-enter");
   const selectInitialGrid = document.querySelectorAll(".element");
-  if (clearElemEnter || selectInitialGrid) {
-    clearElemEnter.forEach((item) => {
-      selectGridParent.removeChild(item);
-    });
-    selectInitialGrid.forEach((item) => {
-      selectGridParent.removeChild(item);
-    });
-    generateGridElements();
-  }
+
+  selectInitialGrid.forEach((item) => {
+    selectGridParent.removeChild(item);
+  });
+  generateGridElements();
 
   let selectElement = document.querySelectorAll(".element");
   selectElement.forEach((el) => {
@@ -121,8 +116,86 @@ function checkWhatColorNow() {
   return selectColorPicker.value;
 }
 
-sliderButton();
-colorPicker();
-generateStartGrid();
-chooseColor();
+function addRandomButton() {
+  const randomButton = document.createElement("button");
+  randomButton.textContent = "Random Color";
+  randomButton.classList.add("random-button");
+  sliderContainer = document.querySelector(".slider-container");
+  sliderContainer.appendChild(randomButton);
+}
+
+function generateRandomColor() {
+  let randomColor = "#";
+  for (let i = 0; i < 6; i++) {
+    const bit = (Math.random() * 16) | 0;
+    randomColor += bit.toString(16);
+  }
+  return randomColor;
+}
+
+function randomizeColoring() {
+  addRandomButton();
+  const selectRandomButton = document.querySelector(".random-button");
+  selectRandomButton.addEventListener("click", (e) => {
+    selectElement = document.querySelectorAll(".element");
+    selectElement.forEach((el) => {
+      el.addEventListener("mousemove", () => {
+        let randomColor = generateRandomColor();
+        el.style.backgroundColor = randomColor;
+      });
+    });
+  });
+}
+
+function addEraseButton() {
+  const eraseButton = document.createElement("button");
+  eraseButton.textContent = "Eraser";
+  eraseButton.classList.add("erase-button");
+  sliderContainer = document.querySelector(".slider-container");
+  sliderContainer.appendChild(eraseButton);
+}
+
+function erase() {
+  addEraseButton();
+  const selectEraseButton = document.querySelector(".erase-button");
+  selectEraseButton.addEventListener("click", (e) => {
+    selectElement = document.querySelectorAll(".element");
+    selectElement.forEach((el) => {
+      el.addEventListener("mousemove", () => {
+        el.style.backgroundColor = "transparent";
+      });
+    });
+  });
+}
+
+function addClearCanvasButton() {
+  const clearCanvasButton = document.createElement("button");
+  clearCanvasButton.textContent = "Clear canvas";
+  clearCanvasButton.classList.add("clear-canvas-button");
+  sliderContainer = document.querySelector(".slider-container");
+  sliderContainer.appendChild(clearCanvasButton);
+}
+
+function clearCanvas() {
+  addClearCanvasButton();
+  const clearCanvasButton = document.querySelector(".clear-canvas-button");
+  clearCanvasButton.addEventListener("click", (e) => {
+    selectElement = document.querySelectorAll(".element");
+    selectElement.forEach((el) => {
+      el.style.backgroundColor = "transparent";
+    });
+  });
+}
+
+function runAll() {
+  sliderButton();
+  colorPicker();
+  generateStartGrid();
+  chooseColor();
+  randomizeColoring();
+  erase();
+  clearCanvas();
+}
+
+runAll();
 slider.addEventListener("input", grid);
