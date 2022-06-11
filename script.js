@@ -1,6 +1,8 @@
-const DEFAULT_COLOR = "#e9ecef";
+const DEFAULT_COLOR = "#868e96";
 const mainContainer = document.createElement("div");
 mainContainer.className = "main-container";
+
+let draw = false;
 
 const body = document.querySelector("body");
 body.appendChild(mainContainer);
@@ -35,7 +37,6 @@ function sliderButton() {
   let value = parseFloat(slider.value);
 
   sliderCounter.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 6h-6v-6h6v6zm9-6h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6z"/></svg> ${value} x ${value}`;
-  // ` ${value} x ${value}`;
 
   let start = parseFloat(slider.min);
   let end = parseFloat(slider.max);
@@ -45,7 +46,6 @@ function sliderButton() {
     for (let i = start; i < end; i += step) {
       value = parseFloat(slider.value);
       sliderCounter.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 6h-6v-6h6v6zm9-6h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6zm-18 9h-6v6h6v-6zm9 0h-6v6h6v-6zm9 0h-6v6h6v-6z"/></svg> ${value} x ${value}`;
-      // ` ${value} x ${value}`;
     }
   });
 }
@@ -69,6 +69,7 @@ function generateStartGrid() {
   const selectElement = document.querySelectorAll(".element");
   selectElement.forEach((el) => {
     el.addEventListener("mousemove", () => {
+      if (!draw) return;
       el.style.backgroundColor = DEFAULT_COLOR;
       el.style.backgroundColor = chooseColor;
     });
@@ -102,6 +103,7 @@ function grid() {
   let selectElement = document.querySelectorAll(".element");
   selectElement.forEach((el) => {
     el.addEventListener("mousemove", () => {
+      if (!draw) return;
       el.style.backgroundColor = checkWhatColorNow();
     });
   });
@@ -114,6 +116,7 @@ function chooseColor() {
     const selectElement = document.querySelectorAll(".element");
     selectElement.forEach((el) => {
       el.addEventListener("mousemove", () => {
+        if (!draw) return;
         colorValue = e.target.value;
         el.style.backgroundColor = colorValue;
       });
@@ -151,6 +154,7 @@ function randomizeColoring() {
     selectElement = document.querySelectorAll(".element");
     selectElement.forEach((el) => {
       el.addEventListener("mousemove", () => {
+        if (!draw) return;
         let randomColor = generateRandomColor();
         el.style.backgroundColor = randomColor;
       });
@@ -178,6 +182,7 @@ function erase() {
     selectElement = document.querySelectorAll(".element");
     selectElement.forEach((el) => {
       el.addEventListener("mousemove", () => {
+        if (!draw) return;
         el.style.backgroundColor = "transparent";
       });
     });
@@ -201,10 +206,25 @@ function clearCanvas() {
   clearCanvasButton.addEventListener("click", (e) => {
     selectElement = document.querySelectorAll(".element");
     selectElement.forEach((el) => {
+      // if (!draw) return;
       el.style.backgroundColor = "transparent";
     });
   });
 }
+
+// function addSaveButton() {
+//   const addSaveButton = document.createElement("a");
+//   const selectToolsContainer = document.querySelector(".tools-container");
+//   const link = document.createElement("a");
+
+//   link.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z"/></svg>`;
+//   link.classList.add = "download-link";
+//   addSaveButton.appendChild(link);
+//   selectToolsContainer.appendChild(addSaveButton);
+
+//   const selectGrid = document.querySelector(".elements-container");
+//   link.href = selectGrid.toDataURL("img/png");
+// }
 
 function runAll() {
   sliderButton();
@@ -214,7 +234,15 @@ function runAll() {
   randomizeColoring();
   erase();
   clearCanvas();
+  // addSaveButton();
 }
 
 runAll();
+
 slider.addEventListener("input", grid);
+window.addEventListener("mousedown", () => {
+  draw = true;
+});
+window.addEventListener("mouseup", () => {
+  draw = false;
+});
