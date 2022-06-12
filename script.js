@@ -134,7 +134,7 @@ function addRandomButton() {
   const randomButton = document.createElement("button");
   const selectColorContainer = document.querySelector(".color-container");
   selectColorContainer.appendChild(randomButton);
-  // randomButton.textContent = "Random Color";
+
   randomButton.classList.add("random-button");
 }
 
