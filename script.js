@@ -206,7 +206,6 @@ function clearCanvas() {
   clearCanvasButton.addEventListener("click", (e) => {
     selectElement = document.querySelectorAll(".element");
     selectElement.forEach((el) => {
-      // if (!draw) return;
       el.style.backgroundColor = "transparent";
     });
   });

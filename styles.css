@@ -9,14 +9,12 @@ body {
 }
 
 .main-container {
-  /* outline: 1px solid rgb(242, 0, 0); */
   width: 900px;
   background-color: #495057;
   margin: 100px auto;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  /* gap: 50px; */
 }
 .elements-container {
   box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
@@ -24,27 +22,24 @@ body {
   background-color: #f1f3f5;
   width: 580px;
   height: 580px;
-  /* margin: auto auto; */
+
   display: flex;
   flex-wrap: wrap;
   order: 2;
   cursor: default;
 }
 .element {
-  /* outline: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
 }
 .element-enter {
-  /* background-color: rgb(6, 6, 6); */
   outline: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  /* z-index: 1; */
 }
 .grid-selection-button {
   font-size: 12px;
@@ -52,7 +47,6 @@ body {
   order: 1;
 }
 .slider-container {
-  /* border: 1px solid black; */
   padding: 22px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 6px 4px;
   margin-top: 20px;
@@ -89,7 +83,6 @@ body {
 }
 
 .color-button {
-  /* margin-top: 50px; */
   order: 2;
   padding: 0;
   border: none;
@@ -97,15 +90,11 @@ body {
   width: 40px;
   height: 40px;
   -webkit-appearance: none;
-  /* box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px; */
 }
 .color-button:hover {
   cursor: pointer;
 }
-/* .color-button:active {
-  box-shadow: rgba(27, 28, 28, 0.3) 3px 3px 6px 0px inset,
-    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
-} */
+
 .color-button::-webkit-color-swatch {
   border: none;
   border-radius: 12px;
@@ -124,8 +113,6 @@ body {
 
   border-radius: 12px;
   border: none;
-  /* box-shadow: rgba(255, 255, 255, 0.2) 0px 5px 10px 5px; */
-  /* padding: 12px; */
   background: linear-gradient(
     45deg,
     #dc3b3e,
@@ -165,8 +152,7 @@ body {
   border-radius: 12px;
   border: none;
   background-color: #dee2e6;
-  /* border-radius: 50px; */
-  /* background: #b3b3b3; */
+
   border-radius: 12px;
 }
 .clear-canvas-button:hover {
@@ -201,7 +187,6 @@ body {
   padding: 12px;
   width: 64px;
   height: 64px;
-  /* font-size: 32px; */
   border-radius: 12px;
   border: none;
   background-color: #dee2e6;
