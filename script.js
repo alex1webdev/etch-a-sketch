@@ -1,4 +1,4 @@
-const DEFAULT_COLOR = "#868e96";
+const default_color = "#868e96";
 const mainContainer = document.createElement("div");
 mainContainer.className = "main-container";
 
@@ -55,7 +55,7 @@ function colorPicker() {
   colorContainer.className = "color-container";
   const colorButton = document.createElement("input");
   colorButton.setAttribute("type", "color");
-  colorButton.setAttribute("value", `${DEFAULT_COLOR}`);
+  colorButton.setAttribute("value", `${default_color}`);
   colorContainer.appendChild(colorButton);
 
   colorButton.className = "color-button";
@@ -70,7 +70,7 @@ function generateStartGrid() {
   selectElement.forEach((el) => {
     el.addEventListener("mousemove", () => {
       if (!draw) return;
-      el.style.backgroundColor = DEFAULT_COLOR;
+      el.style.backgroundColor = default_color;
       el.style.backgroundColor = chooseColor;
     });
   });
@@ -212,20 +212,6 @@ function clearCanvas() {
   });
 }
 
-// function addSaveButton() {
-//   const addSaveButton = document.createElement("a");
-//   const selectToolsContainer = document.querySelector(".tools-container");
-//   const link = document.createElement("a");
-
-//   link.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z"/></svg>`;
-//   link.classList.add = "download-link";
-//   addSaveButton.appendChild(link);
-//   selectToolsContainer.appendChild(addSaveButton);
-
-//   const selectGrid = document.querySelector(".elements-container");
-//   link.href = selectGrid.toDataURL("img/png");
-// }
-
 function runAll() {
   sliderButton();
   colorPicker();
@@ -234,7 +220,6 @@ function runAll() {
   randomizeColoring();
   erase();
   clearCanvas();
-  // addSaveButton();
 }
 
 runAll();
